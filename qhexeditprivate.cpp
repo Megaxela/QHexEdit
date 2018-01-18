@@ -180,9 +180,9 @@ bool QHexEditPrivate::processMoveEvents(QKeyEvent *event)
     QHexCursor* cursor = this->_document->cursor();
 
     if(event->matches(QKeySequence::MoveToNextChar))
-        cursor->moveOffset(1, true);
+        cursor->moveOffset( 1, !cursor->isAsciiPartSelected());
     else if(event->matches(QKeySequence::MoveToPreviousChar))
-        cursor->moveOffset(-1, true);
+        cursor->moveOffset(-1, !cursor->isAsciiPartSelected());
     else if(event->matches(QKeySequence::MoveToNextLine))
         cursor->moveOffset(QHexMetrics::BYTES_PER_LINE);
     else if(event->matches(QKeySequence::MoveToPreviousLine))
