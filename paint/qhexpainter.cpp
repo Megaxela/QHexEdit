@@ -153,7 +153,7 @@ void QHexPainter::drawHex(QPainter *painter, uchar b, sinteger_t i, integer_t of
         painter->fillRect(r, painter->background()); // NOTE: It's a bit ugly, but it works
 
     painter->drawText(r, Qt::AlignLeft | Qt::AlignTop, s);
-    x += r.width();
+    x += this->_metrics->charWidth() * 3;
 }
 
 void QHexPainter::drawAscii(QPainter *painter, uchar b, integer_t offset, integer_t &x, integer_t y)

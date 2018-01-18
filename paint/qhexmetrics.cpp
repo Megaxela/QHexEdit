@@ -93,7 +93,7 @@ void QHexMetrics::calculate(const QFontMetrics &fm)
 {
     this->calculateAddressWidth();
 
-    this->_charwidth = fm.width(" ");
+    this->_charwidth = fm.width(' ');
     this->_charheight = fm.height();
 
     this->_xposhex = this->_charwidth * (this->_addresswidth + 1);
