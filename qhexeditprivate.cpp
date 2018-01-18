@@ -2,6 +2,7 @@
 #include "paint/qhexpainter.h"
 #include <QKeyEvent>
 #include <QToolTip>
+#include <QDebug>
 
 const integer_t QHexEditPrivate::WHELL_SCROLL_LINES = 5;
 
@@ -139,7 +140,8 @@ void QHexEditPrivate::processHexPart(int key)
 
     cursor->removeSelection();
 
-    if((cursor->isInsertMode()) && !cursor->nibbleIndex()) // Insert a new byte
+    if(((cursor->isInsertMode()) && !cursor->nibbleIndex()) ||
+        this->_document->length() <= cursor->offset()) // Insert a new byte
     {
         this->_document->insert(cursor->offset(), val << 4); // X0 byte
         cursor->moveOffset(1, true);
