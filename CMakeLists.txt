@@ -6,6 +6,7 @@ set(INCLUDE_FILES
         document/commands/insertcommand.h
         document/commands/removecommand.h
         document/commands/replacecommand.h
+        document/gapbuffer.h
 )
 
 set(SOURCE_FILES
@@ -31,7 +32,6 @@ set(QOBJECT_HEADERS
         document/qhexcursor.h
         document/qhexdocument.h
         document/qhextheme.h
-        document/gapbuffer.h
         paint/qhexmetrics.h
         paint/qhexpainter.h
         document/metadata/qhexmetadataitem.h
