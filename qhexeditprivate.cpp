@@ -102,6 +102,10 @@ void QHexEditPrivate::processDeleteEvents()
     {
         if(cursor->isHexPartSelected())
         {
+            // Out of range
+            if (cursor->offset() >= this->_document->length())
+                return;
+
             uchar hexval = this->_document->at(cursor->offset());
 
             if(cursor->nibbleIndex() == 1) // Change Low Part
@@ -138,26 +142,32 @@ void QHexEditPrivate::processHexPart(int key)
     QHexCursor* cursor = this->_document->cursor();
     uchar val = static_cast<uchar>(QString(key).toUInt(NULL, 16));
 
+    integer_t selectionStart = cursor->selectionStart();
+
     cursor->removeSelection();
 
     if(((cursor->isInsertMode()) && !cursor->nibbleIndex()) ||
-        this->_document->length() <= cursor->offset()) // Insert a new byte
+        this->_document->length() <= selectionStart) // Insert a new byte
     {
-        this->_document->insert(cursor->offset(), val << 4); // X0 byte
+        this->_document->insert(selectionStart, val << 4); // X0 byte
+
+        cursor->setOffset(selectionStart);
         cursor->moveOffset(1, true);
         return;
     }
 
     if((cursor->isOverwriteMode() && !this->_document->isEmpty()) || cursor->nibbleIndex()) // Override mode, or update low nibble
     {
-        uchar hexval = this->_document->at(cursor->offset());
+        uchar hexval = this->_document->at(selectionStart);
 
         if(cursor->nibbleIndex() == 1) // Change Low Part
             hexval = (hexval & 0xF0) + val;
         else // Change High Part
             hexval = (hexval & 0x0F) + (val << 4);
 
-        this->_document->replace(cursor->offset(), hexval);
+        this->_document->replace(selectionStart, hexval);
+
+        cursor->setOffset(selectionStart, cursor->nibbleIndex());
         cursor->moveOffset(1, true);
     }
 }
