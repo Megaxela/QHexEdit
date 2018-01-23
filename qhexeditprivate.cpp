@@ -229,6 +229,10 @@ bool QHexEditPrivate::processSelectEvents(QKeyEvent *event)
         cursor->moveSelection(-QHexMetrics::BYTES_PER_LINE);
     else if(event->matches(QKeySequence::SelectStartOfDocument))
         cursor->selectStart();
+    else if(event->matches(QKeySequence::SelectStartOfLine))
+        cursor->moveSelection(-(cursor->offset() % QHexMetrics::BYTES_PER_LINE));
+    else if(event->matches(QKeySequence::SelectEndOfLine))
+        cursor->moveSelection(cursor->offset() | QHexMetrics::BYTES_PER_LINE);
     else if(event->matches(QKeySequence::SelectEndOfDocument))
         cursor->selectEnd();
     else if(event->matches(QKeySequence::SelectAll))
