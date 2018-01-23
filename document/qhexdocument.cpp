@@ -6,6 +6,7 @@
 #include <QClipboard>
 #include <QFileInfo>
 #include <QBuffer>
+#include <QDebug>
 #include <QFile>
 
 QHexDocument::QHexDocument(QIODevice *device, QObject *parent): QObject(parent), _baseaddress(0)
@@ -183,12 +184,14 @@ void QHexDocument::replace(integer_t offset, uchar b)
 void QHexDocument::insert(integer_t offset, const QByteArray &data)
 {
     this->_undostack.push(new InsertCommand(this->_gapbuffer, offset, data));
+    qDebug() << _gapbuffer->toByteArray().toHex();
     emit documentChanged();
 }
 
 void QHexDocument::replace(integer_t offset, const QByteArray &data)
 {
     this->_undostack.push(new ReplaceCommand(this->_gapbuffer, offset, data));
+    qDebug() << _gapbuffer->toByteArray().toHex();
     emit documentChanged();
 }
 

@@ -80,7 +80,7 @@ void QHexMetadata::clearComments()
     if(this->_metadata.isEmpty())
         return;
 
-    removeMetadata(this->_metadata, [this](QHexMetadataItem* metaitem) -> bool {
+    removeMetadata(this->_metadata, [](QHexMetadataItem* metaitem) -> bool {
             bool doremove = false;
 
             if(metaitem->hasForeColor() || metaitem->hasBackColor())

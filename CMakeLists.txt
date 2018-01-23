@@ -1,6 +1,12 @@
 cmake_minimum_required(VERSION 3.8)
 project(QHexEdit)
 
+option(QHEXEDIT_BUILD_TESTS "Build QHexEdit tests" Off)
+
+if (${QHEXEDIT_BUILD_TESTS})
+    add_subdirectory(tests)
+endif()
+
 set(INCLUDE_FILES
         document/commands/hexcommand.h
         document/commands/insertcommand.h

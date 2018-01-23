@@ -1,5 +1,7 @@
 #include "gapbuffer.h"
 #include <cstring>
+#include <QDebug>
+#include <iostream>
 
 #define BASE_GAP_SIZE 65536 // 64k buffer
 //#define BASE_GAP_SIZE 4
@@ -30,7 +32,13 @@ void GapBuffer::replace(integer_t index, const QByteArray &data)
     if(index < this->_gapstart)
     {
         sinteger_t len = this->_gapstart - index;
-        this->_buffer.replace(index, len, data.left(len));
+        sinteger_t replaceLen = std::min(len, static_cast<sinteger_t>(data.length()));
+
+        this->_buffer.replace(
+            index,
+            replaceLen,
+            data.left(replaceLen)
+        );
 
         if(len < data.length()) // More data to be copied to the other side of the gap
         {
