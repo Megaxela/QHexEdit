@@ -184,14 +184,12 @@ void QHexDocument::replace(integer_t offset, uchar b)
 void QHexDocument::insert(integer_t offset, const QByteArray &data)
 {
     this->_undostack.push(new InsertCommand(this->_gapbuffer, offset, data));
-    qDebug() << _gapbuffer->toByteArray().toHex();
     emit documentChanged();
 }
 
 void QHexDocument::replace(integer_t offset, const QByteArray &data)
 {
     this->_undostack.push(new ReplaceCommand(this->_gapbuffer, offset, data));
-    qDebug() << _gapbuffer->toByteArray().toHex();
     emit documentChanged();
 }
 
