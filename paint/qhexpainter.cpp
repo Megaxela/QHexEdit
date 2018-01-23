@@ -142,7 +142,7 @@ void QHexPainter::drawHex(QPainter *painter, uchar b, sinteger_t i, integer_t of
 {
     QString s = QString("%1").arg(b, 2, 16, QLatin1Char('0')).toUpper();
     QFontMetrics fm = containerWidget->fontMetrics();
-    QRect r(x, y, fm.width(s), this->_metrics->charHeight());
+    QRect r(x, y, this->_metrics->charWidth() * 2, this->_metrics->charHeight());
 
     this->mark(painter, r, offset, QHexCursor::HexPart);
 
