@@ -134,7 +134,10 @@ void QHexEditPrivate::processBackspaceEvents()
     if(cursor->isOverwriteMode())
         this->_document->replace(pos, 0x00);
     else
+    {
         this->_document->remove(pos, 1);
+        cursor->moveOffset(-1, false);
+    }
 }
 
 void QHexEditPrivate::processHexPart(int key)
